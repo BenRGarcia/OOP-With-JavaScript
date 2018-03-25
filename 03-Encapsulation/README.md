@@ -154,14 +154,37 @@ console.log(mixedMemberObject.getPrivateData()); // -> "Refer to me as 'private'
 
 ## IIFE (Immediately Invoked Function Expression, a.k.a Self-Executing Anonymous Function)
 
-> What is the answer to the 'separation of concerns' problem with closures? To put more functions inside other functions!!! :-P
+> What is the answer to the 'separation of concerns' problem with closures? To put more functions inside a function and then immediately call the function -- DUHHHH!!! :-P
 
-Let's first get past the syntax before we take on its implications:
+Let's first get past the crazy looking syntax of an IIFE before we take on how to apply it:
 
 ```js
 const myFirstIIFE = (function() {
   return "IIFE's just took it to another level...";
 }());
-// Let's see what happens...
+// Let's see what happens... (notice that 'myFirstIIFE' doesn't have curly braces after it in the console.log())
 console.log(myFirstIIFE); // -> IIFE's just took it to another level...
 ```
+
+Here are the things worth noticing:
+
+1. This is the essence of an IIFE: ```var myVar = (function(){}());```
+2. It looks like we just set a variable ```myVar``` equal to an anonymous function (and that we did), but the anonymous function is wrapped in its entirety in a pair of parenthesis.
+    * The anonymous function is wrapped in parenthesis because JS needs those in order for it to be 'immediately invoked' -- consider it nothing more than 'a thing that JavaScript needs me to do so that the anonymous function can be called immediately after it was declared'
+3. So... about all those parenthesis...
+    * Let's strip away the outer parenthesis now that we know it's just something JS needs from us
+    * ```function(){}()```
+    * Although this syntax looks crazy, it's similar to the following:
+      ```js
+      // Step 1 - Define variable as anonymous function
+      var myVar = function() {
+        // ... stuff
+      };
+      // Step 2 - Call function
+      myVar();
+
+      // This is effectively equal to: function(){}()
+      ```
+    * So, we declared a variable's value as an anonymous function, and then immediately afterwards we called the function
+
+The beauty of an IIFE is that because that extra set of ```()```'s follows the anonymous function's closing curly brace, our function is automatically called  -- **and it can only ever be called once**!!! This... Is... HUGE!
