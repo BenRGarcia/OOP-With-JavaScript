@@ -194,3 +194,14 @@ So what does all this mean? Well...
 
 1. We still use closures to our advantage in making public/private/priviledged members
 2. IIFE makes it possible for priviledged members to be defined outside of the constructor scope (thereby solving our 'separation of concerns issue'), and still allows them to be shared over all object instances
+3. Most importantly, we have perhaps discovered a definitive solution to making constructors that truly adhere to the OOP Principles information hiding and encapsulation
+
+## Here is a big crazy example
+
+> Code assignment: Make an object that manages interactions with Google's Firebase Database using an IIFE
+
+Pseudocode:
+
+```js
+
+```
