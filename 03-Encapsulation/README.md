@@ -42,7 +42,7 @@ See how ```_firstName``` and ```_lastName``` are prefixed with an underscore? By
 
 **Cons**:
 
-* You have to trust other programmers judgement in adhering to your intentions -- they may, or may not exercise good judgement
+* You have to trust other programmer's judgement in adhering to your intentions -- they may or may not exercise good judgement
 * Since the underscore literally changes nothing about that property's accessibility in JavaScript, they are still wholly subject to erroneous or innappropriate use/modification.
 
 ## Closures
@@ -143,4 +143,25 @@ console.log(mixedMemberObject.makePolite()); // -> "Refer to me as 'private', pl
 console.log(mixedMemberObject.getPrivateData()); // -> "Refer to me as 'private', please,Shhh... Don't tell"
 ```
 
+**Pros**:
+
+* We have officially discovered a way to actually implement information hiding with public/private/priviledged members!! Woohoo!
+
+**Cons**:
+
+* We violated an OOP principle of 'separation of concerns' -- our ```MemberTypes()``` constructor was responsible for more than just data initialization of an object :-( Unfortunately it was also responsible for defining methods which should be a job reserved for our prototypes (not the end of the world, but...)
+* A side effect of defining methods in the constructor rather than in the prototype is that our method's code is duplicated in every instantiation... we'll use much less memory if a single copy of a method only exists in the prototype, not in every instance of an object...
+
 ## IIFE (Immediately Invoked Function Expression, a.k.a Self-Executing Anonymous Function)
+
+> What is the answer to the 'separation of concerns' problem with closures? To put more functions inside other functions!!! :-P
+
+Let's first get past the syntax before we take on its implications:
+
+```js
+const myFirstIIFE = (function() {
+  return "IIFE's just took it to another level...";
+}());
+// Let's see what happens...
+console.log(myFirstIIFE); // -> IIFE's just took it to another level...
+```
