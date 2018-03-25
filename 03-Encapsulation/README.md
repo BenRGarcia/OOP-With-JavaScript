@@ -187,4 +187,9 @@ Here are the things worth noticing:
       ```
     * So, we declared a variable's value as an anonymous function, and then immediately afterwards we called the function
 
-The beauty of an IIFE is that because that extra set of ```()```'s follows the anonymous function's closing curly brace, our function is automatically called  -- **and it can only ever be called once**!!! This... Is... HUGE!
+The beauty of an IIFE is that because that extra set of ```()```'s follows the anonymous function's closing curly brace, our function is automatically called and its return value is stored in the variable -- **and our anonymous function can only ever be called once**!!! This... Is... HUGE!
+
+So what does all this mean? Well...
+
+1. We still use closures to our advantage in making public/private/priviledged members
+2. IIFE makes it possible for priviledged members to be defined outside of the constructor scope (thereby solving our 'separation of concerns issue'), and still allows them to be shared over all object instances
