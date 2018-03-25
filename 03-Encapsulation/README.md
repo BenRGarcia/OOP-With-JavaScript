@@ -196,12 +196,6 @@ So what does all this mean? Well...
 2. IIFE makes it possible for priviledged members to be defined outside of the constructor scope (thereby solving our 'separation of concerns issue'), and still allows them to be shared over all object instances
 3. Most importantly, we have perhaps discovered a definitive solution to making constructors that truly adhere to the OOP Principles information hiding and encapsulation
 
-## Here is a big crazy example
+## Frustrating/Wonderful News
 
-> Code assignment: Make an object that manages interactions with Google's Firebase Database using an IIFE
-
-Pseudocode:
-
-```js
-
-```
+Sorry to talk your ear off about these things b/c ES6 syntax has eliminated the need for IIFE's... More details forthcoming
