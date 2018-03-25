@@ -92,6 +92,55 @@ let returnedFunction = outerFunction();
 console.log(returnedFunction()); // -> "I am protected inside a function's scope!"
 ```
 
-```returnedFunction()```'s lexical environment is inside of ```outerFunction()``` -- which means it totally has access to ```innerVariable``` even though the variable wasn't expressly returned by ```outerFunction()```!! And of course the benefit to all this rigamarole is that you've now declared a variable whose value can be accessed, but not modified, from the outside.
+BOOM! ```returnedFunction()```'s lexical environment is inside of ```outerFunction()``` -- which means it totally has access to ```innerVariable``` even though that variable wasn't expressly returned by ```outerFunction()```!! Wow!
+
+The moral of the story is that the benefit to all this rigamarole is that you've now declared a variable whose value can be accessed, but not modified, from the outside.
+
+So with this newfound knowledge bomb, I find it helpful to classify members of a closure according to a writing by [David Crockford](http://crockford.com/javascript/private.html):
+
+* Public - members which can be accessed from the outside (e.g. generally any property of an object)
+* Private - members which cannot be directly accessed from the outside
+* Priviledged - members which are accessible by public members and the outside and can also access private variables and methods
+
+Here's a simple example using a constructor to make the point:
+
+```js
+// function name capitalized by convention to indicate that it is a constructor
+function MemberTypes(param) {
+  // Private members
+  let privateVariable = "Refer to me as 'private'";
+  let privateSecret = "Shhh... Don't tell";
+  // Public members
+  this.param = param;
+  this.isAwesome = true;
+  // Priviledged members
+  this.makePolite = function() {
+    return privateVariable += ", please";
+  }
+  this.getPrivateData = function() {
+    return `${privateVariable},${privateSecret}`;
+  }
+}
+// Also a public member, has only indirect access to private members via priviledged member
+MemberTypes.prototype.makePrivateInfoArray = function() {
+  return this.getPrivateData().split(",");
+}
+
+// Here comes the magic, let's first make a new object from the constructor
+let mixedMemberObject = new MemberTypes('I am a public parameter!');
+
+// Private members - cannot be accessed from the outside
+console.log(mixedMemberObject.privateVariable); // -> undefined
+console.log(mixedMemberObject.privateSecret); // -> undefined
+
+// Public members - can be accessed from the outside, doesn't access private members directly ('directly' being the operative word)
+console.log(mixedMemberObject.param); // -> 'I am a public parameter!'
+console.log(mixedMemberObject.isAwesome); // -> true
+console.log(mixedMemberObject.makePrivateInfoArray()); // -> ["Refer to me as 'private'", "Shhh... Don't tell"]
+
+// Priviledged members - can be accessed from the outside, can access/operate/modify private members
+console.log(mixedMemberObject.makePolite()); // -> "Refer to me as 'private', please"
+console.log(mixedMemberObject.getPrivateData()); // -> "Refer to me as 'private', please,Shhh... Don't tell"
+```
 
 ## IIFE (Immediately Invoked Function Expression, a.k.a Self-Executing Anonymous Function)
