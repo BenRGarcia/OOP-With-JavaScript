@@ -79,7 +79,7 @@ console.log(myObject.name); // -> "Santa's Little Helper"
 
 // Change an existing property's value with bracket notation (variable)
 let myVar3 = 'age';
-myObject[age] = 15;
+myObject[myVar3] = 15;
 console.log(myObject.age); // -> 15
 ```
 
