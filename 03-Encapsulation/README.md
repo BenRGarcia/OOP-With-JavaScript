@@ -154,7 +154,7 @@ console.log(mixedMemberObject.getPrivateData()); // -> "Refer to me as 'private'
 
 ## IIFE (Immediately Invoked Function Expression, a.k.a Self-Executing Anonymous Function)
 
-> What is the answer to the 'separation of concerns' problem with closures? To put more functions inside a function and then immediately call the function -- DUHHHH!!! :-P
+> What is the answer to the problem of 'separation of concerns' with closures, and how to we provide access to a closure from outside the constructor while still having prototype members hide data of an instantiated object? To put more functions inside a function and then immediately call the function -- DUHHHH!!! :-P
 
 Let's first get past the crazy looking syntax of an IIFE before we take on how to apply it:
 
@@ -166,24 +166,25 @@ const myFirstIIFE = (function() {
 console.log(myFirstIIFE); // -> IIFE's just took it to another level...
 ```
 
-Here are the things worth noticing:
+Here are the things worth noting:
 
 1. This is the essence of an IIFE: ```var myVar = (function(){}());```
 2. It looks like we just set a variable ```myVar``` equal to an anonymous function (and that we did), but the anonymous function is wrapped in its entirety in a pair of parenthesis.
     * The anonymous function is wrapped in parenthesis because JS needs those in order for it to be 'immediately invoked' -- consider it nothing more than 'a thing that JavaScript needs me to do so that the anonymous function can be called immediately after it was declared'
-3. So... about all those parenthesis...
+3. So... about those other parenthesis...
     * Let's strip away the outer parenthesis now that we know it's just something JS needs from us
-    * ```function(){}()```
+    * We are now left with: ```function(){}()```
     * Although this syntax looks crazy, it's similar to the following:
       ```js
       // Step 1 - Define variable as anonymous function
-      var myVar = function() {
-        // ... stuff
+      var intermediateVariable = function() {
+        return 'stuff';
       };
-      // Step 2 - Call function
-      myVar();
+      // Step 2 - Declare variable, store return value of function
+      var myResult = intermediateVariable();
 
-      // This is effectively equal to: function(){}()
+      // IIFE version, all in one statement (skipping the redundancy of 'intermediateVariable')
+      var myResult = (function(){return 'stuff';}());
       ```
     * So, we declared a variable's value as an anonymous function, and then immediately afterwards we called the function
 
